@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+
+    <script>
+      const { of, Observable } = window.rxjs;
+      const { map } = window.rxjs.operators;
+
+      map((x) => x * x)(of(1, 2, 3)).subscribe((v) => {
+        console.log(`Output is: ${v}`);
+      });
+
+      const foo = new Observable((subscriber) => {
+        debugger;
+        console.log("hello");
+        subscriber.next(42);
+        subscriber.next(100); // "return" another value
+        subscriber.next(200); // "return" yet another
+
+        setTimeout(() => {
+          subscriber.next(300); // happens asynchronously
+        }, 1000);
+      });
+
+      // 调用next触发 subscribe 回调函数
+      foo.subscribe((x) => {
+        debugger;
+        console.log(x);
+      });
+    </script>
+  </body>
+</html>

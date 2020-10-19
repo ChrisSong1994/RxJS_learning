@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "npx umi dev"
+  },
+  "dependencies": {
+    "umi": "^3.2.23"
+  }
+}
