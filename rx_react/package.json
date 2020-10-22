@@ -3,6 +3,7 @@
     "dev": "npx umi dev"
   },
   "dependencies": {
+    "rxjs": "^6.6.3",
     "umi": "^3.2.23"
   }
 }

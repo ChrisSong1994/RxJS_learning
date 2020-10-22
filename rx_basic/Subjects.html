@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+
+    <script>
+      /*
+A Subject is like an Observable, but can multicast to many Observers.
+ Subjects are like EventEmitters: they maintain a registry of many listeners.
+*/
+
+      const { Subject, from } = window.rxjs;
+
+      const subject = new Subject();
+
+      subject.subscribe({
+        next: (v) => console.log(`observerA: ${v}`),
+      });
+      subject.subscribe({
+        next: (v) => console.log(`observerB: ${v}`),
+      });
+
+      //   可以多播
+      //   subject.next(1);
+      //   subject.next(2);
+
+      const observable = from([1, 2, 3]);
+
+      observable.subscribe(subject);
+    </script>
+  </body>
+</html>

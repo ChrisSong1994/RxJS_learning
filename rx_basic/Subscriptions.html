@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+
+    <script>
+      /**
+subscription 是一个对象代表一次行可执行资源
+*/
+
+      const { interval, Observable } = window.rxjs;
+      const { map } = window.rxjs.operators;
+
+      const observable1 = interval(400);
+      const observable2 = interval(300);
+
+      const subscription = observable1.subscribe((x) =>
+        console.log("first", x)
+      );
+
+      const childSubscription = observable2.subscribe((x) =>
+        console.log("second", x)
+      );
+
+      // 可以用过 subscription 对象的add 添加 其他subscription 对象到一个subscription 对象， unsubscribe multiple Subscriptions
+
+      subscription.add(childSubscription);
+
+      setTimeout(() => {
+        subscription.unsubscribe();
+      }, 1000);
+    </script>
+  </body>
+</html>
